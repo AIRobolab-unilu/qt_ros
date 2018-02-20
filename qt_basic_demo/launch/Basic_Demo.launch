@@ -1,0 +1,25 @@
+<launch>
+
+  
+  <!-- ================ --> 
+  <!-- Voice Activation --> 
+  <!-- ================ --> 
+  <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+  <node name="qt_playsound" pkg="qt_playsound" type="qt_playsound.py"/>
+  <node name="qt_tts" pkg="qt_tts" type="qt_tts_festivalwrapper.py" output="screen" />
+    
+  <!-- ================ --> 
+  <!-- Game  Activation --> 
+  <!-- ================ --> 
+  <node name="qt_ent_game" pkg="qt_ent_game" type="qt_ent_game_node" output="screen"/>
+  <node name="qt_robot_movement" pkg="qt_robot_movement" type="qt_robot_movement_node" /> 
+  
+  <node name="qt_demo" pkg="qt_basic_demo" type="game.py" output="screen"/>
+  
+  <node name="find_object_2d" pkg="find_object_2d" type="find_object_2d">
+        <remap from="image" to="/camera/rgb/image_raw"/>
+        <param name="gui" value="false" type="bool"/>
+        <param name="objects_path" value="$(find qt_basic_demo)/config/Images" type="str"/>
+        <param name="settings_path" value="~/.ros/find_object_2d.ini" type="str"/>
+  </node>
+</launch>
